@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    BBVA - PRUEBA JAVA 
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    Hernan Dario Lozano Rojas
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="175" header="Menú" collapsible="true">
+                    <p:menu>
+                        <p:submenu label="Principal">
+                            <p:menuitem value="Inicio" outcome="index" />
+                            <p:menuitem value="Crear" outcome="Vistas/Agregar" />
+                            <p:menuitem value="Editar" outcome="Vistas/Editar" />
+
+                        </p:submenu>
+
+                    </p:menu>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <h:form id="formest">
+                        <h:panelGrid columns="3">
+                            <f:facet name="header">
+                                Información de los estudiantes
+                            </f:facet><br></br>
+                            <h:outputText value="identificacion"/>
+                            <p:inputText value="#{estudianteBean.identificacion}" required="true" /><br></br>
+                            <h:outputText value="nombre"/>
+                            <p:inputText value="#{estudianteBean.nombre}" required="true" /><br></br>
+                            <h:outputText value="apellido"/>
+                            <p:inputText value="#{estudianteBean.apellido}" required="true" /><br></br>
+
+                            <h:outputText value="       "/>
+                            <p:commandButton actionListener="#{estudianteBean.crear()}" value="Crear" update="formest" />                            
+                        </h:panelGrid>
+
+                        <p:dataTable id="tabla" value="#{estudianteBean.estudiantes}" var="est" paginator="true" rows="5" paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                     emptyMessage="No hay datos cargados.." editable="true">
+                            <f:facet name="header">
+                                Datos de estudiantes
+                            </f:facet>
+                            <p:ajax event="rowEdit" listener="#{estudianteBean.editar(est)}"/>
+
+                            <p:column headerText="identificacion">
+                                <h:outputText value="#{est.identificacion}"/>
+                            </p:column>
+
+                            <p:column headerText="nombre">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{est.nombre}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{est.nombre}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="apellido">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{est.apellido}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{est.apellido}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Editar" style="width: 50px" >
+                                <p:rowEditor />
+
+                            </p:column>
+
+
+                        </p:dataTable>
+                    </h:form>
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+

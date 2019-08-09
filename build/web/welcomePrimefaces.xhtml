@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    Header
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    Footer
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                    <p:menu>
+                        <p:submenu label="Resources">
+                            <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
+                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
+                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
+                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
+
+                        </p:submenu>
+
+                    </p:menu>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <h:form id="formest">
+                        <h:panelGrid columns="3">
+                            <h:outputText value="identificacion"/>
+                            <p:inputText value="#{estudianteBean.identificacion}" required="true" /><br></br>
+                            <h:outputText value="nombre"/>
+                            <p:inputText value="#{estudianteBean.nombre}" required="true" /><br></br>
+                            <h:outputText value="apellido"/>
+                            <p:inputText value="#{estudianteBean.apellido}" required="true" /><br></br>
+
+<!--                            <h:outputText value="apellido"/>-->
+                            <p:commandButton actionListener="#{estudianteBean.crear()}" value="Crear" update="formest" />
+                            <p:commandButton actionListener="#{estudianteBean.editar()}" value="Editar" />
+                        </h:panelGrid>
+
+                        <p:dataTable value="#{estudianteBean.estudiantes}" var="est">
+                            <p:column headerText="identificacion">
+                                <h:outputText value="#{est.identificacion}"/>
+                            </p:column>
+                            <p:column headerText="nombre">
+                                <h:outputText value="#{est.nombre}"/>
+                            </p:column>
+                            <p:column headerText="apellido">
+                                <h:outputText value="#{est.apellido}"/>
+                            </p:column>
+                            <p:column headerText="editar">
+                                <p:commandButton actionListener="#{estudianteBean.editar(est)}" value="Editar" update=""/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form> 
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+
